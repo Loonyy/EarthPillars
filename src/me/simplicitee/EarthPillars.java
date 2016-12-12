@@ -153,14 +153,12 @@ public class EarthPillars extends EarthAbility implements AddonAbility, ComboAbi
 
 	@Override
 	public String getAuthor() {
-		// TODO Auto-generated method stub
 		return "Simpliciee";
 	}
 
 	@Override
 	public String getVersion() {
-		// TODO Auto-generated method stub
-		return "1.0 (SimpHub)";
+		return "1.2";
 	}
 
 	@Override
