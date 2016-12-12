@@ -158,7 +158,7 @@ public class EarthPillars extends EarthAbility implements AddonAbility, ComboAbi
 
 	@Override
 	public String getVersion() {
-		return "1.2";
+		return "1.2.1";
 	}
 
 	@Override
