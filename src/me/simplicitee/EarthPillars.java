@@ -193,4 +193,9 @@ public class EarthPillars extends EarthAbility implements AddonAbility, ComboAbi
 	public String getDescription() {
 		return config.get().getString("Combos.Earth.EarthPillars.Description");
 	}
+	
+	@Override
+	public boolean isEnabled() {
+		return config.get().getBoolean("Combos.Earth.EarthPillars.Enabled");
+	}
 }
