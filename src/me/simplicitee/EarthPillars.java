@@ -29,7 +29,6 @@ public class EarthPillars extends EarthAbility implements AddonAbility, ComboAbi
 	
 	public static Config config;
 
-	public static ConcurrentHashMap<Block, Long> times = new ConcurrentHashMap<>();
 	
 	private double radius;
 	private double launch;
@@ -92,11 +91,15 @@ public class EarthPillars extends EarthAbility implements AddonAbility, ComboAbi
 				LivingEntity l = (LivingEntity) entity;
 				entity.setVelocity(new Vector(0, launch, 0));
 				
-				new TempBlock(entity.getLocation().getBlock(), entity.getLocation().subtract(0, 1, 0).getBlock().getType(), (byte)0);
-				times.put(entity.getLocation().getBlock(), System.currentTimeMillis() + 200);
+				TempBlock tempBlock = new TempBlock(entity.getLocation().getBlock(),
+						entity.getLocation().subtract(0, 1, 0).getBlock().getType(), (byte) 0);
+				tempBlock.setRevertTime(200L);
+
 				if (entity.getLocation().distance(l.getEyeLocation()) > 1) {
-					new TempBlock(entity.getLocation().add(0, 1, 0).getBlock(), entity.getLocation().subtract(0, 1, 0).getBlock().getType(), (byte)0);
-					times.put(entity.getLocation().add(0, 1, 0).getBlock(), System.currentTimeMillis() + 200);
+					TempBlock tempBlock2 = new TempBlock(entity.getLocation().add(0, 1, 0).getBlock(),
+							entity.getLocation().subtract(0, 1, 0).getBlock().getType(), (byte) 0);
+					tempBlock2.setRevertTime(200L);
+
 				}
 			}
 		}
@@ -129,15 +132,6 @@ public class EarthPillars extends EarthAbility implements AddonAbility, ComboAbi
 		this.radius = radius;
 	}
 	
-	public static void revert(boolean ignoretime) {
-		for (Block block : times.keySet()) {
-			long revert = times.get(block);
-			if (System.currentTimeMillis() >= revert || ignoretime) {
-				times.remove(block);
-				TempBlock.revertBlock(block, Material.AIR);
-			}
-		}
-	}
 	
 	public void remove(boolean cooldown) {
 		super.remove();
